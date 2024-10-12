@@ -1,66 +1,307 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# API Documentation
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This document provides an overview of the available endpoints for managing customers, products, orders, and categories in the application.
 
-## About Laravel
+## Table of Contents
+- [1. Products](#1-products)
+- [2. Categories](#2-categories)
+- [3. Orders](#3-orders)
+- [4. Customers](#4-customers)
+- [5. Order Products](#5-order-products)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 1. Products
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Endpoint: `/products`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Retrieve All Products
+- **Method:** `GET`
+- **Example Request:**
+    ```
+    GET /api/products
+    ```
+- **Response:**
+    ```json
+    [
+        {
+            "id": 1,
+            "name": "Product 1",
+            "description": "Description for Product 1",
+            "cost": 50.00,
+            "price": 75.00,
+            "category_id": 2,
+            "stock": 100,
+            "created_at": "2024-10-11T12:00:00",
+            "updated_at": "2024-10-11T12:00:00"
+        },
+        ...
+    ]
+    ```
 
-## Learning Laravel
+#### Create a New Product
+- **Method:** `POST`
+- **Request Body:**
+    ```json
+    {
+        "name": "Product 3",
+        "description": "Description for Product 3",
+        "cost": 30.00,
+        "price": 45.00,
+        "category_id": 1,
+        "stock": 200
+    }
+    ```
+- **Example Request:**
+    ```
+    POST /api/products
+    ```
+- **Response:**
+    ```json
+    {
+        "id": 3,
+        "name": "Product 3",
+        "description": "Description for Product 3",
+        "cost": 30.00,
+        "price": 45.00,
+        "category_id": 1,
+        "stock": 200,
+        "created_at": "2024-10-11T12:00:00",
+        "updated_at": "2024-10-11T12:00:00"
+    }
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Update an Existing Product
+- **Method:** `PUT`
+- **Example Request:**
+    ```
+    PUT /api/products/3
+    ```
+- **Request Body:**
+    ```json
+    {
+        "stock": 180
+    }
+    ```
+- **Response:**
+    ```json
+    {
+        "id": 3,
+        "name": "Product 3",
+        "description": "Description for Product 3",
+        "cost": 30.00,
+        "price": 45.00,
+        "category_id": 1,
+        "stock": 180,
+        "created_at": "2024-10-11T12:00:00",
+        "updated_at": "2024-10-11T12:05:00"
+    }
+    ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Delete a Product
+- **Method:** `DELETE`
+- **Example Request:**
+    ```
+    DELETE /api/products/3
+    ```
+- **Response:**
+    ```json
+    {
+        "message": "Product deleted successfully."
+    }
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 2. Categories
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Endpoint: `/categories`
 
-### Premium Partners
+#### Retrieve All Categories
+- **Method:** `GET`
+- **Example Request:**
+    ```
+    GET /api/categories
+    ```
+- **Response:**
+    ```json
+    [
+        {
+            "id": 1,
+            "name": "Category 1",
+            "description": "Description for Category 1",
+            "created_at": "2024-10-11T12:00:00",
+            "updated_at": "2024-10-11T12:00:00"
+        },
+        ...
+    ]
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### Create a New Category
+- **Method:** `POST`
+- **Request Body:**
+    ```json
+    {
+        "name": "Category 3",
+        "description": "Description for Category 3"
+    }
+    ```
+- **Example Request:**
+    ```
+    POST /api/categories
+    ```
+- **Response:**
+    ```json
+    {
+        "id": 3,
+        "name": "Category 3",
+        "description": "Description for Category 3",
+        "created_at": "2024-10-11T12:00:00",
+        "updated_at": "2024-10-11T12:00:00"
+    }
+    ```
 
-## Contributing
+#### Update an Existing Category
+- **Method:** `PUT`
+- **Example Request:**
+    ```
+    PUT /api/categories/3
+    ```
+- **Request Body:**
+    ```json
+    {
+        "description": "Updated description for Category 3"
+    }
+    ```
+- **Response:**
+    ```json
+    {
+        "id": 3,
+        "name": "Category 3",
+        "description": "Updated description for Category 3",
+        "created_at": "2024-10-11T12:00:00",
+        "updated_at": "2024-10-11T12:05:00"
+    }
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Delete a Category
+- **Method:** `DELETE`
+- **Example Request:**
+    ```
+    DELETE /api/categories/3
+    ```
+- **Response:**
+    ```json
+    {
+        "message": "Category deleted successfully."
+    }
+    ```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 3. Orders
 
-## Security Vulnerabilities
+### Endpoint: `/orders`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Retrieve All Orders
+- **Method:** `GET`
+- **Example Request:**
+    ```
+    GET /api/orders
+    ```
+- **Response:**
+    ```json
+    [
+        {
+            "id": 1,
+            "customer_id": 1,
+            "status": "completed",
+            "total_amount": 150.00,
+            "created_at": "2024-10-11T12:00:00",
+            "updated_at": "2024-10-11T12:00:00"
+        },
+        ...
+    ]
+    ```
 
-## License
+#### Create a New Order
+- **Method:** `POST`
+- **Request Body:**
+    ```json
+    {
+        "customer_id": 1,
+        "status": "pending",
+        "total_amount": 200.00
+    }
+    ```
+- **Example Request:**
+    ```
+    POST /api/orders
+    ```
+- **Response:**
+    ```json
+    {
+        "id": 3,
+        "customer_id": 1,
+        "status": "pending",
+        "total_amount": 200.00,
+        "created_at": "2024-10-11T12:00:00",
+        "updated_at": "2024-10-11T12:00:00"
+    }
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Update an Existing Order
+- **Method:** `PUT`
+- **Example Request:**
+    ```
+    PUT /api/orders/3
+    ```
+- **Request Body:**
+    ```json
+    {
+        "status": "completed"
+    }
+    ```
+- **Response:**
+    ```json
+    {
+        "id": 3,
+        "customer_id": 1,
+        "status": "completed",
+        "total_amount": 200.00,
+        "created_at": "2024-10-11T12:00:00",
+        "updated_at": "2024-10-11T12:05:00"
+    }
+    ```
+
+#### Delete an Order
+- **Method:** `DELETE`
+- **Example Request:**
+    ```
+    DELETE /api/orders/3
+    ```
+- **Response:**
+    ```json
+    {
+        "message": "Order deleted successfully."
+    }
+    ```
+
+---
+
+## 4. Customers
+
+### Endpoint: `/customers`
+
+_TODO: Add customer-related endpoints and examples here._
+
+---
+
+## 5. Order Products
+
+### Endpoint: `/order_products`
+
+_TODO: Add order product-related endpoints and examples here._
+
+---
+
+## Conclusion
+This API allows you to manage customers, products, orders, and categories efficiently. For any additional information, please refer to the codebase or reach out to the development team.
