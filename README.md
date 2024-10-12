@@ -1,307 +1,107 @@
-# API Documentation
+# E-Commerce API
 
-This document provides an overview of the available endpoints for managing customers, products, orders, and categories in the application.
+This API allows you to manage products, categories, orders, and customers for an e-commerce platform. It provides endpoints for CRUD (Create, Read, Update, Delete) operations on each of these resources.
 
-## Table of Contents
-- [1. Products](#1-products)
-- [2. Categories](#2-categories)
-- [3. Orders](#3-orders)
-- [4. Customers](#4-customers)
-- [5. Order Products](#5-order-products)
 
-## 1. Products
 
-### Endpoint: `/products`
+### 1. Products
 
-#### Retrieve All Products
-- **Method:** `GET`
-- **Example Request:**
-    ```
-    GET /api/products
-    ```
-- **Response:**
-    ```json
-    [
-        {
-            "id": 1,
-            "name": "Product 1",
-            "description": "Description for Product 1",
-            "cost": 50.00,
-            "price": 75.00,
-            "category_id": 2,
-            "stock": 100,
-            "created_at": "2024-10-11T12:00:00",
-            "updated_at": "2024-10-11T12:00:00"
-        },
-        ...
-    ]
-    ```
+- **Endpoint:** `/products`
+- **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
-#### Create a New Product
-- **Method:** `POST`
-- **Request Body:**
-    ```json
-    {
-        "name": "Product 3",
-        "description": "Description for Product 3",
-        "cost": 30.00,
-        "price": 45.00,
-        "category_id": 1,
-        "stock": 200
-    }
-    ```
-- **Example Request:**
-    ```
-    POST /api/products
-    ```
-- **Response:**
-    ```json
-    {
-        "id": 3,
-        "name": "Product 3",
-        "description": "Description for Product 3",
-        "cost": 30.00,
-        "price": 45.00,
-        "category_id": 1,
-        "stock": 200,
-        "created_at": "2024-10-11T12:00:00",
-        "updated_at": "2024-10-11T12:00:00"
-    }
-    ```
+#### Product Model:
+- **id:** Integer (Auto-increment)
+- **name:** String (Name of the product)
+- **description:** Text (Detailed description of the product)
+- **cost:** Decimal (Cost of the product)
+- **price:** Decimal (Price of the product)
+- **category_id:** Integer (Foreign key to the Category model)
+- **stock:** Integer (Quantity in stock)
+- **created_at:** Timestamp
+- **updated_at:** Timestamp
 
-#### Update an Existing Product
-- **Method:** `PUT`
-- **Example Request:**
-    ```
-    PUT /api/products/3
-    ```
-- **Request Body:**
-    ```json
-    {
-        "stock": 180
-    }
-    ```
-- **Response:**
-    ```json
-    {
-        "id": 3,
-        "name": "Product 3",
-        "description": "Description for Product 3",
-        "cost": 30.00,
-        "price": 45.00,
-        "category_id": 1,
-        "stock": 180,
-        "created_at": "2024-10-11T12:00:00",
-        "updated_at": "2024-10-11T12:05:00"
-    }
-    ```
-
-#### Delete a Product
-- **Method:** `DELETE`
-- **Example Request:**
-    ```
-    DELETE /api/products/3
-    ```
-- **Response:**
-    ```json
-    {
-        "message": "Product deleted successfully."
-    }
-    ```
+#### Example Requests:
+- **GET** `/products`: Retrieve a list of all products.
+- **POST** `/products`: Create a new product with details like name, description, price, category_id, and stock.
+- **PUT** `/products/{id}`: Update the details of a specific product.
+- **DELETE** `/products/{id}`: Remove a product from the catalog.
 
 ---
 
-## 2. Categories
+### 2. Categories
 
-### Endpoint: `/categories`
+- **Endpoint:** `/categories`
+- **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
-#### Retrieve All Categories
-- **Method:** `GET`
-- **Example Request:**
-    ```
-    GET /api/categories
-    ```
-- **Response:**
-    ```json
-    [
-        {
-            "id": 1,
-            "name": "Category 1",
-            "description": "Description for Category 1",
-            "created_at": "2024-10-11T12:00:00",
-            "updated_at": "2024-10-11T12:00:00"
-        },
-        ...
-    ]
-    ```
+#### Category Model:
+- **id:** Integer (Auto-increment)
+- **name:** String (Name of the category)
+- **description:** Text (Optional description of the category)
+- **created_at:** Timestamp
+- **updated_at:** Timestamp
 
-#### Create a New Category
-- **Method:** `POST`
-- **Request Body:**
-    ```json
-    {
-        "name": "Category 3",
-        "description": "Description for Category 3"
-    }
-    ```
-- **Example Request:**
-    ```
-    POST /api/categories
-    ```
-- **Response:**
-    ```json
-    {
-        "id": 3,
-        "name": "Category 3",
-        "description": "Description for Category 3",
-        "created_at": "2024-10-11T12:00:00",
-        "updated_at": "2024-10-11T12:00:00"
-    }
-    ```
-
-#### Update an Existing Category
-- **Method:** `PUT`
-- **Example Request:**
-    ```
-    PUT /api/categories/3
-    ```
-- **Request Body:**
-    ```json
-    {
-        "description": "Updated description for Category 3"
-    }
-    ```
-- **Response:**
-    ```json
-    {
-        "id": 3,
-        "name": "Category 3",
-        "description": "Updated description for Category 3",
-        "created_at": "2024-10-11T12:00:00",
-        "updated_at": "2024-10-11T12:05:00"
-    }
-    ```
-
-#### Delete a Category
-- **Method:** `DELETE`
-- **Example Request:**
-    ```
-    DELETE /api/categories/3
-    ```
-- **Response:**
-    ```json
-    {
-        "message": "Category deleted successfully."
-    }
-    ```
+#### Example Requests:
+- **GET** `/categories`: Retrieve a list of all categories.
+- **POST** `/categories`: Create a new category with a name and optional description.
+- **PUT** `/categories/{id}`: Update the details of a specific category.
+- **DELETE** `/categories/{id}`: Remove a category.
 
 ---
 
-## 3. Orders
+### 3. Orders
 
-### Endpoint: `/orders`
+- **Endpoint:** `/orders`
+- **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
-#### Retrieve All Orders
-- **Method:** `GET`
-- **Example Request:**
-    ```
-    GET /api/orders
-    ```
-- **Response:**
-    ```json
-    [
-        {
-            "id": 1,
-            "customer_id": 1,
-            "status": "completed",
-            "total_amount": 150.00,
-            "created_at": "2024-10-11T12:00:00",
-            "updated_at": "2024-10-11T12:00:00"
-        },
-        ...
-    ]
-    ```
+#### Order Model:
+- **id:** Integer (Auto-increment)
+- **customer_id:** Integer (Foreign key to the Customer model)
+- **status:** String (e.g., pending, completed, cancelled)
+- **total_amount:** Decimal (Total amount for the order)
+- **created_at:** Timestamp
+- **updated_at:** Timestamp
 
-#### Create a New Order
-- **Method:** `POST`
-- **Request Body:**
-    ```json
-    {
-        "customer_id": 1,
-        "status": "pending",
-        "total_amount": 200.00
-    }
-    ```
-- **Example Request:**
-    ```
-    POST /api/orders
-    ```
-- **Response:**
-    ```json
-    {
-        "id": 3,
-        "customer_id": 1,
-        "status": "pending",
-        "total_amount": 200.00,
-        "created_at": "2024-10-11T12:00:00",
-        "updated_at": "2024-10-11T12:00:00"
-    }
-    ```
-
-#### Update an Existing Order
-- **Method:** `PUT`
-- **Example Request:**
-    ```
-    PUT /api/orders/3
-    ```
-- **Request Body:**
-    ```json
-    {
-        "status": "completed"
-    }
-    ```
-- **Response:**
-    ```json
-    {
-        "id": 3,
-        "customer_id": 1,
-        "status": "completed",
-        "total_amount": 200.00,
-        "created_at": "2024-10-11T12:00:00",
-        "updated_at": "2024-10-11T12:05:00"
-    }
-    ```
-
-#### Delete an Order
-- **Method:** `DELETE`
-- **Example Request:**
-    ```
-    DELETE /api/orders/3
-    ```
-- **Response:**
-    ```json
-    {
-        "message": "Order deleted successfully."
-    }
-    ```
+#### Example Requests:
+- **GET** `/orders`: Retrieve a list of all orders.
+- **POST** `/orders`: Create a new order for a customer with details like customer_id, order_date, and status.
+- **PUT** `/orders/{id}`: Update the status or other details of a specific order.
+- **DELETE** `/orders/{id}`: Cancel or delete an order.
 
 ---
 
-## 4. Customers
+### 4. Order Products
 
-### Endpoint: `/customers`
+- **Endpoint:** `/orders/{order_id}/items`
+- **Methods:** `GET`
 
-_TODO: Add customer-related endpoints and examples here._
+#### Order_Product (Pivot) Table:
+- **order_id:** Integer (Foreign key to the Order model)
+- **product_id:** Integer (Foreign key to the Product model)
+- **quantity:** Integer (Quantity of the product in the order)
+
+#### Example Requests:
+- **GET** `/orders/{order_id}/items`: Retrieve the items associated with a specific order, including product details and quantities.
 
 ---
 
-## 5. Order Products
+### 5. Customers
 
-### Endpoint: `/order_products`
+- **Endpoint:** `/customers`
+- **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
-_TODO: Add order product-related endpoints and examples here._
+#### Customer Model:
+- **id:** Integer (Auto-increment)
+- **name:** String (Name of the customer)
+- **email:** String (Email address of the customer)
+- **phone:** String (Phone number of the customer)
+- **address:** Text (Address of the customer)
+- **created_at:** Timestamp
+- **updated_at:** Timestamp
 
----
+#### Example Requests:
+- **GET** `/customers`: Retrieve a list of all customers.
+- **POST** `/customers`: Create a new customer with details like name, email, phone, and address.
+- **PUT** `/customers/{id}`: Update the details of a specific customer.
+- **DELETE** `/customers/{id}`: Remove a customer from the database.
 
-## Conclusion
-This API allows you to manage customers, products, orders, and categories efficiently. For any additional information, please refer to the codebase or reach out to the development team.
+
