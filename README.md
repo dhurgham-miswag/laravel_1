@@ -2,11 +2,9 @@
 
 This API allows you to manage products, categories, orders, and customers for an e-commerce platform. It provides endpoints for CRUD (Create, Read, Update, Delete) operations on each of these resources.
 
-
-
 ### 1. Products
 
-- **Endpoint:** `/products`
+- **Endpoint:** `/api/products`
 - **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
 #### Product Model:
@@ -21,16 +19,16 @@ This API allows you to manage products, categories, orders, and customers for an
 - **updated_at:** Timestamp
 
 #### Example Requests:
-- **GET** `/products`: Retrieve a list of all products.
-- **POST** `/products`: Create a new product with details like name, description, price, category_id, and stock.
-- **PUT** `/products/{id}`: Update the details of a specific product.
-- **DELETE** `/products/{id}`: Remove a product from the catalog.
+- **GET** `/api/products`: Retrieve a list of all products.
+- **POST** `/api/products`: Create a new product with details like name, description, price, category_id, and stock.
+- **PUT** `/api/products/{id}`: Update the details of a specific product.
+- **DELETE** `/api/products/{id}`: Remove a product from the catalog.
 
 ---
 
 ### 2. Categories
 
-- **Endpoint:** `/categories`
+- **Endpoint:** `/api/categories`
 - **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
 #### Category Model:
@@ -41,16 +39,16 @@ This API allows you to manage products, categories, orders, and customers for an
 - **updated_at:** Timestamp
 
 #### Example Requests:
-- **GET** `/categories`: Retrieve a list of all categories.
-- **POST** `/categories`: Create a new category with a name and optional description.
-- **PUT** `/categories/{id}`: Update the details of a specific category.
-- **DELETE** `/categories/{id}`: Remove a category.
+- **GET** `/api/categories`: Retrieve a list of all categories.
+- **POST** `/api/categories`: Create a new category with a name and optional description.
+- **PUT** `/api/categories/{id}`: Update the details of a specific category.
+- **DELETE** `/api/categories/{id}`: Remove a category.
 
 ---
 
 ### 3. Orders
 
-- **Endpoint:** `/orders`
+- **Endpoint:** `/api/orders`
 - **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
 #### Order Model:
@@ -62,16 +60,16 @@ This API allows you to manage products, categories, orders, and customers for an
 - **updated_at:** Timestamp
 
 #### Example Requests:
-- **GET** `/orders`: Retrieve a list of all orders.
-- **POST** `/orders`: Create a new order for a customer with details like customer_id, order_date, and status.
-- **PUT** `/orders/{id}`: Update the status or other details of a specific order.
-- **DELETE** `/orders/{id}`: Cancel or delete an order.
+- **GET** `/api/orders`: Retrieve a list of all orders.
+- **POST** `/api/orders`: Create a new order for a customer with details like customer_id, order_date, and status.
+- **PUT** `/api/orders/{id}`: Update the status or other details of a specific order.
+- **DELETE** `/api/orders/{id}`: Cancel or delete an order.
 
 ---
 
 ### 4. Order Products
 
-- **Endpoint:** `/orders/{order_id}/items`
+- **Endpoint:** `/api/orders/{order_id}/items`
 - **Methods:** `GET`
 
 #### Order_Product (Pivot) Table:
@@ -80,13 +78,13 @@ This API allows you to manage products, categories, orders, and customers for an
 - **quantity:** Integer (Quantity of the product in the order)
 
 #### Example Requests:
-- **GET** `/orders/{order_id}/items`: Retrieve the items associated with a specific order, including product details and quantities.
+- **GET** `/api/orders/{order_id}/items`: Retrieve the items associated with a specific order, including product details and quantities.
 
 ---
 
 ### 5. Customers
 
-- **Endpoint:** `/customers`
+- **Endpoint:** `/api/customers`
 - **Methods:** `GET`, `POST`, `PUT`, `DELETE`
 
 #### Customer Model:
@@ -99,9 +97,7 @@ This API allows you to manage products, categories, orders, and customers for an
 - **updated_at:** Timestamp
 
 #### Example Requests:
-- **GET** `/customers`: Retrieve a list of all customers.
-- **POST** `/customers`: Create a new customer with details like name, email, phone, and address.
-- **PUT** `/customers/{id}`: Update the details of a specific customer.
-- **DELETE** `/customers/{id}`: Remove a customer from the database.
-
-
+- **GET** `/api/customers`: Retrieve a list of all customers.
+- **POST** `/api/customers`: Create a new customer with details like name, email, phone, and address.
+- **PUT** `/api/customers/{id}`: Update the details of a specific customer.
+- **DELETE** `/api/customers/{id}`: Remove a customer from the database.
